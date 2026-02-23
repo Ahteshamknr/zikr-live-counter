@@ -59,12 +59,16 @@
   import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
   // 🔥 REPLACE WITH YOUR FIREBASE CONFIG
-  const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT.firebaseapp.com",
-    databaseURL: "https://YOUR_PROJECT-default-rtdb.firebaseio.com",
-    projectId: "YOUR_PROJECT",
-  };
+ const firebaseConfig = {
+  apiKey: "AIzaSyBrAE46NAujjWZz6kHGzFBlNGeEQTP48bQ",
+  authDomain: "zikrmate-a4546.firebaseapp.com",
+  databaseURL: "https://zikrmate-a4546-default-rtdb.firebaseio.com",
+  projectId: "zikrmate-a4546",
+  storageBucket: "zikrmate-a4546.firebasestorage.app",
+  messagingSenderId: "421414480361",
+  appId: "1:421414480361:web:d67709cae28dc8303e4378"
+};
+
 
   const app = initializeApp(firebaseConfig);
   const database = getDatabase(app);
