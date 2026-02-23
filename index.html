@@ -5,73 +5,114 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      margin: 0;
-      background: radial-gradient(circle at center, #0F172A, #020617);
-      font-family: Arial, sans-serif;
+      height: 100vh;
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      background: radial-gradient(circle at 30% 30%, #0F172A, #020617 70%);
       color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* NEON GLOW */
+    .neon {
+      text-shadow:
+        0 0 5px #00E5FF,
+        0 0 10px #00E5FF,
+        0 0 20px #00E5FF;
+    }
+
+    header {
       text-align: center;
+      padding: 25px 20px 10px 20px;
     }
 
-    .section {
-      padding: 50px 20px;
-      max-width: 900px;
-      margin: auto;
-    }
-
-    h1 {
+    header h1 {
+      font-size: 22px;
       color: #FFD700;
+      letter-spacing: 1px;
     }
 
-    .counter {
-      font-size: 60px;
-      font-weight: bold;
+    .main-counter {
+      font-size: 64px;
+      font-weight: 800;
       color: #00E5FF;
-      margin: 20px 0;
+      margin-top: 15px;
+      transition: all 0.3s ease;
     }
 
-    .card {
+    .grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      padding: 20px 40px;
+      max-width: 1200px;
+      margin: auto;
+      width: 100%;
+    }
+
+    .glass {
       background: rgba(255,255,255,0.05);
+      border-radius: 16px;
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.08);
       padding: 20px;
-      margin: 15px 0;
-      border-radius: 12px;
+      box-shadow: 0 0 25px rgba(0,229,255,0.08);
+    }
+
+    .glass h2 {
+      font-size: 16px;
+      margin-bottom: 15px;
+      color: #FFD700;
     }
 
     .progress-bar {
       width: 100%;
+      height: 10px;
       background: rgba(255,255,255,0.1);
       border-radius: 20px;
       overflow: hidden;
-      height: 12px;
       margin-top: 10px;
     }
 
     .progress-fill {
       height: 100%;
-      background: #39FF14;
       width: 0%;
+      background: linear-gradient(90deg, #39FF14, #00E5FF);
+      transition: width 0.8s ease;
+      box-shadow: 0 0 15px #39FF14;
     }
 
     .leaderboard-row {
       display: flex;
       justify-content: space-between;
-      padding: 8px 0;
+      padding: 6px 0;
+      font-size: 14px;
       border-bottom: 1px solid rgba(255,255,255,0.05);
     }
 
-    .download-btn {
-      display: inline-block;
-      padding: 15px 30px;
-      background: #00E5FF;
-      color: black;
-      font-weight: bold;
-      border-radius: 30px;
-      text-decoration: none;
-      margin-top: 20px;
+    footer {
+      text-align: center;
+      padding: 15px;
     }
 
-    .download-btn:hover {
-      opacity: 0.9;
+    .download-badge {
+      height: 55px;
+      transition: transform 0.2s ease;
+    }
+
+    .download-badge:hover {
+      transform: scale(1.05);
+    }
+
+    @media(max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+      .main-counter { font-size: 48px; }
     }
 
   </style>
@@ -79,47 +120,37 @@
 
 <body>
 
-<!-- GLOBAL COUNTER -->
-<div class="section">
+<header>
   <h1>🌍 Zikr Completed Worldwide</h1>
-  <div class="counter" id="globalCounter">0</div>
-  <p>Live Community Impact</p>
-</div>
+  <div class="main-counter neon" id="globalCounter">0</div>
+</header>
 
-<!-- COMMUNITY GOAL -->
-<div class="section">
-  <h1>🎯 Community Goal</h1>
-  <div class="card">
-    <h3 id="goalTitle">Loading...</h3>
-    <div id="goalNumbers"></div>
+<div class="grid">
+
+  <!-- COMMUNITY GOAL -->
+  <div class="glass">
+    <h2>🎯 Community Goal</h2>
+    <div id="goalTitle">Loading...</div>
+    <div id="goalNumbers" style="margin-top:8px;"></div>
     <div class="progress-bar">
       <div class="progress-fill" id="goalProgress"></div>
     </div>
   </div>
-</div>
 
-<!-- GLOBAL STATS -->
-<div class="section">
-  <h1>📊 Global Tasbeh Stats</h1>
-  <div id="statsContainer"></div>
-</div>
-
-<!-- LEADERBOARD -->
-<div class="section">
-  <h1>🏆 Monthly Leaderboard</h1>
-  <div class="card" id="leaderboardContainer">
-    Loading leaderboard...
+  <!-- LEADERBOARD -->
+  <div class="glass">
+    <h2>🏆 Monthly Top 5</h2>
+    <div id="leaderboardContainer">Loading...</div>
   </div>
+
 </div>
 
-<!-- DOWNLOAD BUTTON -->
-<div class="section">
-  <h1>📲 Join The Movement</h1>
-  <a href="https://play.google.com/store/apps/details?id=com.ahteshamtech.zikrmate"
-     class="download-btn" target="_blank">
-     Download ZikrMate App
+<footer>
+  <a href="https://play.google.com/store/apps/details?id=com.ahteshamtech.zikrmate" target="_blank">
+    <img class="download-badge"
+      src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg">
   </a>
-</div>
+</footer>
 
 <script type="module">
 
@@ -130,13 +161,13 @@ const firebaseConfig = {
   apiKey: "AIzaSyBrAE46NAujjWZz6kHGzFBlNGeEQTP48bQ",
   authDomain: "zikrmate-a4546.firebaseapp.com",
   databaseURL: "https://zikrmate-a4546-default-rtdb.firebaseio.com",
-  projectId: "zikrmate-a4546",
+  projectId: "zikrmate-a4546"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-/* ---------------- GLOBAL COUNTER ---------------- */
+/* ---------- GLOBAL COUNTER ---------- */
 
 const counterEl = document.getElementById("globalCounter");
 let previousValue = 0;
@@ -172,22 +203,11 @@ onValue(ref(db, "global_stats/predefined_counts"), (snap) => {
     total += (data[key] || 0) * (defaultTargets[key] || 33);
   });
 
-  animateValue(previousValue, total, 1500);
+  animateValue(previousValue, total, 1200);
   previousValue = total;
-
-  /* Global Stats List */
-  const container = document.getElementById("statsContainer");
-  container.innerHTML = "";
-  Object.keys(data).forEach(key => {
-    const exact = data[key] * (defaultTargets[key] || 33);
-    container.innerHTML += `<div class="card">
-        <strong>${key}</strong><br/>
-        ${exact.toLocaleString()} recitations
-    </div>`;
-  });
 });
 
-/* ---------------- COMMUNITY GOAL ---------------- */
+/* ---------- COMMUNITY GOAL ---------- */
 
 onValue(ref(db, "community_goal"), (snap) => {
   const goal = snap.val();
@@ -199,9 +219,7 @@ onValue(ref(db, "community_goal"), (snap) => {
 
   document.getElementById("goalTitle").innerText = title;
 
-  const countsRef = ref(db, "global_stats/predefined_counts/" + targetName);
-
-  onValue(countsRef, (s) => {
+  onValue(ref(db, "global_stats/predefined_counts/" + targetName), (s) => {
     const cycles = s.val() || 0;
     const exact = cycles * (defaultTargets[targetName] || 33);
     const percent = Math.min((exact / milestone) * 100, 100);
@@ -213,7 +231,7 @@ onValue(ref(db, "community_goal"), (snap) => {
   });
 });
 
-/* ---------------- LEADERBOARD ---------------- */
+/* ---------- LEADERBOARD ---------- */
 
 const monthKey = new Date().getFullYear() + "_" +
                  String(new Date().getMonth()+1).padStart(2,'0');
