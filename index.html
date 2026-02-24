@@ -346,7 +346,12 @@ onValue(lb,snap=>{
  const c=document.getElementById("leaderboardContainer");
  c.innerHTML="";
  if(!data)return;
- Object.values(data).reverse().forEach((u,i)=>{
+ const users = [];
+snap.forEach(child => {
+  users.push(child.val());
+});
+
+users.reverse().forEach((u,i)=>{
   const medal=["🥇","🥈","🥉"][i]||`#${i+1}`;
   c.innerHTML+=`
    <div class="leaderboard-row top${i+1}">
